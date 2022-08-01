@@ -108,7 +108,6 @@ export default class ImageTool {
   constructor({ data, config, api, readOnly }) {
     this.api = api;
     this.readOnly = readOnly;
-
     /**
      * Tool's initial config
      */
@@ -162,6 +161,8 @@ export default class ImageTool {
      * Set saved state
      */
     this._data = {};
+    this._data.height = data.height;
+    this._data.width = data.width;
     this.data = data;
   }
 
@@ -196,9 +197,12 @@ export default class ImageTool {
    */
   save() {
     const caption = this.ui.nodes.caption;
+    if (this.ui.nodes.imageEl.height && this.ui.nodes.imageEl.width) {
+      this._data.height = String(this.ui.nodes.imageEl.height);
+      this._data.width =  String(this.ui.nodes.imageEl.width);
+    }
 
     this._data.caption = caption.innerHTML;
-
     return this.data;
   }
 
@@ -307,7 +311,6 @@ export default class ImageTool {
    */
   set data(data) {
     this.image = data.file;
-
     this._data.caption = data.caption || '';
     this.ui.fillCaption(this._data.caption);
 
@@ -338,9 +341,8 @@ export default class ImageTool {
    */
   set image(file) {
     this._data.file = file || {};
-
     if (file && file.url) {
-      this.ui.fillImage(file.url);
+      this.ui.fillImage(file.url, this._data.height, this._data.width);
     }
   }
 

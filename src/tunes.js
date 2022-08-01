@@ -1,7 +1,4 @@
 import { make } from './ui';
-import bgIcon from './svg/background.svg';
-import borderIcon from './svg/border.svg';
-import stretchedIcon from './svg/stretched.svg';
 
 /**
  * Working with Block Tunes
@@ -27,21 +24,6 @@ export default class Tunes {
    */
   static get tunes() {
     return [
-      {
-        name: 'withBorder',
-        icon: borderIcon,
-        title: 'With border',
-      },
-      {
-        name: 'stretched',
-        icon: stretchedIcon,
-        title: 'Stretch image',
-      },
-      {
-        name: 'withBackground',
-        icon: bgIcon,
-        title: 'With background',
-      },
     ];
   }
 
