@@ -1,5 +1,6 @@
 import { make } from './ui';
 
+import bgIcon from './svg/background.svg';
 /**
  * Working with Block Tunes
  */
@@ -24,6 +25,11 @@ export default class Tunes {
    */
   static get tunes() {
     return [
+      {
+        name: 'withBackground',
+        icon: bgIcon,
+        title: 'Center align'
+      }
     ];
   }
 
