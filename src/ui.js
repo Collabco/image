@@ -154,12 +154,14 @@ export default class Ui {
      * Check for a source extension to compose element correctly: video tag for mp4, img — for others
      */
     const tag = /\.mp4$/.test(url) ? 'VIDEO' : 'IMG';
-
     const attributes = {
-      src: url,
-      height: height,
-      width: width
+      src: url
     };
+
+    if (height && width && height !== undefined && width !== undefined) {
+      attributes.height = height;
+      attributes.width = width;
+    }
 
     /**
      * We use eventName variable because IMG and VIDEO tags have different event to be called on source load
@@ -197,7 +199,7 @@ export default class Ui {
      *
      * @type {Element}
      */
-
+    
     if (this.nodes.height && this.nodes.width) {
       attributes.height = this.nodes.imageEl.height;
       attributes.width = this.nodes.imageEl.width;
