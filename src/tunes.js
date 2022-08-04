@@ -28,8 +28,8 @@ export default class Tunes {
       {
         name: 'withBackground',
         icon: bgIcon,
-        title: 'Center align'
-      }
+        title: 'Center align',
+      },
     ];
   }
 

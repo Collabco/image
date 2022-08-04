@@ -23,14 +23,14 @@ export default class Ui {
 
     this.nodes = {
       wrapper: make('div', [this.CSS.baseClass, this.CSS.wrapper]),
-      imageContainer: make('div', [this.CSS.imageContainer]),
+      imageContainer: make('div', [ this.CSS.imageContainer ]),
       fileButton: this.createFileButton(),
       imageEl: undefined,
       imagePreloader: make('div', this.CSS.imagePreloader),
       caption: make('div', [this.CSS.input, this.CSS.caption], {
         contentEditable: !this.readOnly,
       }),
-      attributes: undefined
+      attributes: undefined,
     };
     /**
      * Create base structure
@@ -110,7 +110,7 @@ export default class Ui {
    * @returns {Element}
    */
   createFileButton() {
-    const button = make('div', [this.CSS.button]);
+    const button = make('div', [ this.CSS.button ]);
 
     button.innerHTML = this.config.buttonContent || `${buttonIcon} ${this.api.i18n.t('Select an Image')}`;
 
@@ -147,6 +147,8 @@ export default class Ui {
    * Shows an image
    *
    * @param {string} url - image source
+   * @param height
+   * @param width
    * @returns {void}
    */
   fillImage(url, height, width) {
@@ -155,7 +157,7 @@ export default class Ui {
      */
     const tag = /\.mp4$/.test(url) ? 'VIDEO' : 'IMG';
     const attributes = {
-      src: url
+      src: url,
     };
 
     if (height && width && height !== undefined && width !== undefined) {
@@ -199,59 +201,67 @@ export default class Ui {
      *
      * @type {Element}
      */
-    
+
     if (this.nodes.height && this.nodes.width) {
       attributes.height = this.nodes.imageEl.height;
       attributes.width = this.nodes.imageEl.width;
     }
     this.nodes.imageEl = make(tag, this.CSS.imageEl, attributes);
- 
+
     interact('.image-tool__image-picture')
       .resizable({
         // resize from all edges and corners
-        edges: { left: true, right: true, bottom: true, top: true },
+        edges: {
+          left: true,
+          right: true,
+          bottom: true,
+          top: true,
+        },
 
         listeners: {
           move(event) {
             var target = event.target;
-            var x = (parseFloat(target.getAttribute('data-x')) || 0)
-            var y = (parseFloat(target.getAttribute('data-y')) || 0)
+            var x = (parseFloat(target.getAttribute('data-x')) || 0);
+            var y = (parseFloat(target.getAttribute('data-y')) || 0);
 
             // update the element's style
-            target.style.width = event.rect.width + 'px'
-            target.style.height = event.rect.height + 'px'
+            target.style.width = event.rect.width + 'px';
+            target.style.height = event.rect.height + 'px';
 
             target.setAttribute('height', target.style.height);
             target.setAttribute('width', target.style.width);
 
             // translate when resizing from top or left edges
-            x += event.deltaRect.left
-            y += event.deltaRect.top
+            x += event.deltaRect.left;
+            y += event.deltaRect.top;
 
-            target.style.transform = 'translate(' + x + 'px,' + y + 'px)'
+            target.style.transform = 'translate(' + x + 'px,' + y + 'px)';
 
-            target.setAttribute('data-x', x)
-            target.setAttribute('data-y', y)
-            target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
-          }
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+            target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
+          },
         },
         modifiers: [
           // keep the edges inside the parent
           interact.modifiers.restrictEdges({
-            outer: 'parent'
+            outer: 'parent',
           }),
 
           // minimum size
           interact.modifiers.restrictSize({
-            min: { width: 100, height: 50 }
+            min: {
+              width: 100,
+              height: 50,
+            },
           }),
 
           interact.modifiers.aspectRatio({
             ratio: 'preserve',
-          })
+          }),
         ],
-        inertia: true
-      })
+        inertia: true,
+      });
 
     /**
      * Add load event listener
