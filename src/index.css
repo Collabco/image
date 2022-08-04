@@ -116,18 +116,6 @@
     }
   }
 
-  &--withBackground {
-    ^&__image {
-      padding: 15px;
-      background: var(--bg-color);
-
-      &-picture {
-        max-width: 60%;
-        margin: 0 auto;
-      }
-    }
-  }
-
   &--stretched {
     ^&__image {
       &-picture {
